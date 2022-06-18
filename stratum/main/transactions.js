@@ -10,30 +10,30 @@ const Transactions = function(config) {
 
   // Mainnet Configuration
   this.configMainnet = {
-    bech32: 'bc',
+    bech32: 'vtc',
     bip32: {
       public: Buffer.from('0488B21E', 'hex').readUInt32LE(0),
       private: Buffer.from('0488ADE4', 'hex').readUInt32LE(0),
     },
-    peerMagic: 'f9beb4d9',
-    pubKeyHash: Buffer.from('00', 'hex').readUInt8(0),
+    peerMagic: 'fabfb5da',
+    pubKeyHash: Buffer.from('47', 'hex').readUInt8(0),
     scriptHash: Buffer.from('05', 'hex').readUInt8(0),
     wif: Buffer.from('80', 'hex').readUInt8(0),
-    coin: 'btc',
+    coin: 'vtc',
   };
 
   // Testnet Configuration
   this.configTestnet = {
-    bech32: 'tb',
+    bech32: 'tvtc',
     bip32: {
       public: Buffer.from('043587CF', 'hex').readUInt32LE(0),
       private: Buffer.from('04358394', 'hex').readUInt32LE(0),
     },
-    peerMagic: '0b110907',
-    pubKeyHash: Buffer.from('6F', 'hex').readUInt8(0),
+    peerMagic: '76657274',
+    pubKeyHash: Buffer.from('4A', 'hex').readUInt8(0),
     scriptHash: Buffer.from('C4', 'hex').readUInt8(0),
     wif: Buffer.from('EF', 'hex').readUInt8(0),
-    coin: 'btc',
+    coin: 'vtc',
   };
 
   // Calculate Generation Transaction
@@ -45,7 +45,7 @@ const Transactions = function(config) {
     const txInPrevOutIndex = Math.pow(2, 32) - 1;
     const txOutputBuffers = [];
 
-    let txVersion = 4;
+    let txVersion = 1;
     const network = !_this.config.settings.testnet ?
       _this.configMainnet :
       _this.configTestnet;

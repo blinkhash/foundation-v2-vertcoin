@@ -4,7 +4,7 @@ const config = require('../../configs/example');
 const testdata = require('../../daemon/test/daemon.mock');
 const utils = require('../main/utils');
 
-config.primary.address = 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq';
+config.primary.address = 'VqspNKCc3ufsUSJb6Vq2TcEVX1Wn9EdHjP';
 config.primary.recipients = [];
 
 const jobId = 1;
@@ -35,19 +35,19 @@ describe('Test template functionality', () => {
     const template = new Template(jobId.toString(16), configCopy, rpcDataCopy, extraNonce);
     delete rpcDataCopy.target;
     expect(Number(template.target).toFixed(9)).toBe('1.1042625655198232e+71');
-    expect(template.difficulty.toFixed(9)).toBe('0.000244141');
+    expect(template.difficulty.toFixed(9)).toBe('0.000243191');
   });
 
   test('Test template difficulty calculation', () => {
     const template = new Template(jobId.toString(16), configCopy, rpcDataCopy, extraNonce);
-    expect(template.difficulty.toFixed(9)).toBe('0.000244141');
+    expect(template.difficulty.toFixed(9)).toBe('0.000243191');
   });
 
   test('Test generation transaction handling', () => {
     const template = new Template(jobId.toString(16), configCopy, rpcDataCopy, extraNonce);
     expect(template.generation.length).toBe(2);
-    expect(template.generation[0].slice(0, -5)).toStrictEqual(Buffer.from('04000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0f5104', 'hex'));
-    expect(template.generation[1]).toStrictEqual(Buffer.from('000000000200f2052a01000000160014e8df018c7e326cc253faac7e46cdc51e68542c420000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf900000000', 'hex'));
+    expect(template.generation[0].slice(0, -5)).toStrictEqual(Buffer.from('01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0f5104', 'hex'));
+    expect(template.generation[1]).toStrictEqual(Buffer.from('000000000200f2052a010000001976a914ae2ea621540e8199ec6a07aa5280c1c1849cdb1e88ac0000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf900000000', 'hex'));
   });
 
   test('Test coinbase serialization [1]', () => {
@@ -55,9 +55,9 @@ describe('Test template functionality', () => {
     const extraNonce1 = Buffer.from('01', 'hex');
     const extraNonce2 = Buffer.from('00', 'hex');
     const coinbase = template.handleCoinbase(extraNonce1, extraNonce2);
-    expect(coinbase.slice(0, 44)).toStrictEqual(Buffer.from('04000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0f5104', 'hex'));
+    expect(coinbase.slice(0, 44)).toStrictEqual(Buffer.from('01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0f5104', 'hex'));
     expect(coinbase.slice(49, 51)).toStrictEqual(Buffer.from('0100', 'hex'));
-    expect(coinbase.slice(51)).toStrictEqual(Buffer.from('000000000200f2052a01000000160014e8df018c7e326cc253faac7e46cdc51e68542c420000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf900000000', 'hex'));
+    expect(coinbase.slice(51)).toStrictEqual(Buffer.from('000000000200f2052a010000001976a914ae2ea621540e8199ec6a07aa5280c1c1849cdb1e88ac0000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf900000000', 'hex'));
   });
 
   test('Test coinbase serialization [2]', () => {
