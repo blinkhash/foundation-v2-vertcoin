@@ -52,6 +52,7 @@ config.primary.address = '[address]';
 config.primary.coin = {};
 config.primary.coin.name = 'Vertcoin';
 config.primary.coin.symbol = 'VTC';
+config.primary.coin.algorithm = 'verthash';
 
 // Daemon Configuration
 config.primary.daemons = [];
